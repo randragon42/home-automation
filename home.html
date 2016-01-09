@@ -10,17 +10,24 @@
 <p>Turn lights on and off</p>
 
 <br>
-<br>
-<br>
 
-<h4>Light 1</h4>
-<!--Change the following link to run c program and pass in variables-->
-<a href="http://www.wisc.edu"><img src="on_button.png" alt="ON" width="142" height="142"></a>
-<img src="off_button.jpg" alt="OFF" width="142" height="142">
-<br>
+<h4>Outlet 1</h4>
+<button type="button" onclick="outlet1_on()"><img src="images/on_button.png" height="142"width="142"></button>
+<button type="button" onclick="outlet1_off()"><img src="images/off_button.jpg" height="142"width="142"></button>
 
 
 
+
+<script>
+function outlet1_on(){
+	var child_process = require('child_process');
+	child_process.exec("./code/remote 1 ON");
+}
+
+function outlet1_off(){
+
+}
+</script>
 </body>
 
 

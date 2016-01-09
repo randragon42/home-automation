@@ -81,6 +81,7 @@ void turnOff(int GPIO_num){
 */
 int main(int argc, char *argv[]){
 	
+	initialize();
 	
 	// Check for correct number of arguments
 	if(argc != 3){
