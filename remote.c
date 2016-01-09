@@ -16,15 +16,15 @@
 //match light number with gpio pin
 #def LIGHT1_ON 5
 #def LIGHT2_ON 6
-#def LIGHT3_ON 12
-#def LIGHT4_ON 13
-#def LIGHT5_ON 16
+#def LIGHT3_ON 13
+#def LIGHT4_ON 19
+#def LIGHT5_ON 26
 
-#def LIGHT1_OFF 18
-#def LIGHT2_OFF 19
+#def LIGHT1_OFF 12
+#def LIGHT2_OFF 16
 #def LIGHT3_OFF 20
 #def LIGHT4_OFF 21
-#def LIGHT5_OFF 26
+#def LIGHT5_OFF 25
 
 #def WAIT_TIME 250
 
@@ -76,24 +76,70 @@ void turnOff(int GPIO_num){
 	}
 }
 
-
+/*
+	Input should look like: "remote.cgi 1 ON"
+*/
 int main(int argc, char *argv[]){
+	
 	
 	// Check for correct number of arguments
 	if(argc != 3){
-		return(-1)
+		return(-1);
 	}
-	int GPIO_num = *(argv[1])[1]
+	int GPIO_num = *(argv[1])[1];
+	
+
+	
 	
 	if(strcmp(argv[2], "ON\0") == 0){
-		turnOn(argv[1])
+		switch (GPIO_num){
+			case 1:
+				GPIO_num = LIGHT1_ON;
+				break;
+			case 2:
+				GPIO_num = LIGHT2_ON;
+				break;
+			case 3:
+				GPIO_num = LIGHT3_ON;
+				break;
+			case 4:
+				GPIO_num = LIGHT4_ON;
+				break;
+			case 5:
+				GPIO_num = LIGHT5_ON;
+				break
+			default:
+				return -1;
+		}
+		
+		turnOn(GPIO_num);
 	}
 	else if(strcmp(argv[2], "OFF\0") == 0){
-		turnOff(argv[1]);
+				switch (GPIO_num){
+			case 1:
+				GPIO_num = GPIO_num = LIGHT1_OFF;
+				break;
+			case 2:
+				GPIO_num = GPIO_num = LIGHT1_OFF;
+				break;
+			case 3:
+				GPIO_num = GPIO_num = LIGHT1_OFF;
+				break;
+			case 4:
+				GPIO_num = GPIO_num = LIGHT1_OFF;
+				break;
+			case 5:
+				GPIO_num = GPIO_num = LIGHT1_OFF;
+				break;
+			default:
+				return(-1);
+		}
+		
+		turnOff(GPIO_num);
 	}
 	else{
-		return(-1)
+		return(-1);
 	}
 	
-	return 0;
+	return(0);
 }
