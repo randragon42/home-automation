@@ -19,13 +19,16 @@
 
 
 <script>
+//These functions don't work...
+//Will need to do something with nodeJS probably...
 function outlet1_on(){
 	var child_process = require('child_process');
-	child_process.exec("./code/remote 1 ON");
+	child_process.exec("sudo ./code/remote 5 ON");
 }
 
 function outlet1_off(){
-
+	var child_process = require('child_process');
+	child_process.exec("sudo ./code/remote 5 OFF");
 }
 </script>
 </body>
