@@ -30,7 +30,7 @@
 #define LIGHT4_OFF 21
 #define LIGHT5_OFF 25
 
-#define WAIT_TIME 250
+#define WAIT_TIME 125
 
 
 
