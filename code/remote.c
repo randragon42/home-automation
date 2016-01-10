@@ -4,7 +4,8 @@
  *	This file contains functions to perform operations
  *	to turn lights on and off.
  *
- *	Testing unix commits...
+ *	Use this to compile:
+ *	gcc -Wall -pthread -o remote remote.c -lpigpio -lrt
  *
  *	Typical input looks like:
  *
@@ -12,21 +13,24 @@
  */
  
 #include <pigpio.h>
+#include <time.h>
+#include <stdlib.h>
+#include <string.h>
 
 //match light number with gpio pin
-#def LIGHT1_ON 5
-#def LIGHT2_ON 6
-#def LIGHT3_ON 13
-#def LIGHT4_ON 19
-#def LIGHT5_ON 26
+#define LIGHT1_ON 5
+#define LIGHT2_ON 6
+#define LIGHT3_ON 13
+#define LIGHT4_ON 19
+#define LIGHT5_ON 26
 
-#def LIGHT1_OFF 12
-#def LIGHT2_OFF 16
-#def LIGHT3_OFF 20
-#def LIGHT4_OFF 21
-#def LIGHT5_OFF 25
+#define LIGHT1_OFF 12
+#define LIGHT2_OFF 16
+#define LIGHT3_OFF 20
+#define LIGHT4_OFF 21
+#define LIGHT5_OFF 25
 
-#def WAIT_TIME 250
+#define WAIT_TIME 250
 
 
 
@@ -54,6 +58,16 @@ int initialize(){
 	return 0;
 }
 
+void delay(int milliseconds){
+	long pause;
+	clock_t now, then;
+	pause = milliseconds*(CLOCKS_PER_SEC/1000);
+	now = then = clock();
+	while( (now-then) < pause ){
+		now = clock();
+	}
+}
+
 /*
 	Turns on a specified light.
  */
@@ -71,7 +85,7 @@ void turnOn(int GPIO_num){
 void turnOff(int GPIO_num){
 	if(GPIO_num == LIGHT1_OFF || GPIO_num == LIGHT2_OFF || GPIO_num == LIGHT3_OFF || GPIO_num == LIGHT4_OFF || GPIO_num == LIGHT5_OFF){
 		gpioWrite(GPIO_num, 1); // Set gpio high.
-		delay(WAIT_TIME)
+		delay(WAIT_TIME);
 		gpioWrite(GPIO_num, 0); // Set gpio low.
 	}
 }
@@ -87,7 +101,7 @@ int main(int argc, char *argv[]){
 	if(argc != 3){
 		return(-1);
 	}
-	int GPIO_num = *(argv[1])[1];
+	int GPIO_num = atoi(argv[1]);
 	
 
 	
@@ -108,7 +122,7 @@ int main(int argc, char *argv[]){
 				break;
 			case 5:
 				GPIO_num = LIGHT5_ON;
-				break
+				break;
 			default:
 				return -1;
 		}
@@ -118,19 +132,19 @@ int main(int argc, char *argv[]){
 	else if(strcmp(argv[2], "OFF\0") == 0){
 				switch (GPIO_num){
 			case 1:
-				GPIO_num = GPIO_num = LIGHT1_OFF;
+				GPIO_num = LIGHT1_OFF;
 				break;
 			case 2:
-				GPIO_num = GPIO_num = LIGHT1_OFF;
+				GPIO_num = LIGHT2_OFF;
 				break;
 			case 3:
-				GPIO_num = GPIO_num = LIGHT1_OFF;
+				GPIO_num = LIGHT3_OFF;
 				break;
 			case 4:
-				GPIO_num = GPIO_num = LIGHT1_OFF;
+				GPIO_num = LIGHT4_OFF;
 				break;
 			case 5:
-				GPIO_num = GPIO_num = LIGHT1_OFF;
+				GPIO_num = LIGHT5_OFF;
 				break;
 			default:
 				return(-1);
