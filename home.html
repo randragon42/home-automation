@@ -7,7 +7,8 @@
 
 <body>
 <h1>Raspberry Pi Home Automation</h1>
-<p>Turn lights on and off</p>
+<p>Turn lights on and off</p><br>
+<p id="READY">Not yet connected.<p>
 
 <br>
 
@@ -20,29 +21,26 @@
 <button type="button" onclick="outlet5_off()"><img src="images/off_button.jpg" height="142"width="142"></button>
 
 
-<?php
-function outlet5_on(){
-	exec("sudo ./code/remote 5 ON");
-}
-function outlet5_off(){
-	exec("sudo./code/remote 5 OFF");
-}
-
-?>
-
 
 <script>
+
+var socket = new WebSocket("http://192.168.1.129");
+socket.onopen = function(){
+	//Websocket is connected. Change status line. id=READY
+	document.getElementById("READY").innerHTML = "Connection established.";
+}
+
 //These functions don't work...
 //Will need to do something with nodeJS probably...
-/*function outlet1_on(){
-	var child_process = require('child_process');
-	child_process.exec("sudo ./code/remote 5 ON");
+function outlet1_on(){
+	//var child_process = require('child_process');
+	//child_process.exec("sudo ./code/remote 5 ON");
 }
 
 function outlet1_off(){
-	var child_process = require('child_process');
-	child_process.exec("sudo ./code/remote 5 OFF");
-}*/
+	//var child_process = require('child_process');
+	//child_process.exec("sudo ./code/remote 5 OFF");
+}
 </script>
 </body>
 
