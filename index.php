@@ -26,7 +26,7 @@ function outlet5_on(){
 	exec("./code/remote 5 ON");
 }
 function outlet5_off(){
-	exec("./code/remoteo 5 OFF");
+	exec("./code/remote 5 OFF");
 }
 
 ?>

@@ -20,19 +20,35 @@
 <button type="button" onclick="outlet5_on()"><img src="images/on_button.png" height="142"width="142"></button>
 <button type="button" onclick="outlet5_off()"><img src="images/off_button.jpg" height="142"width="142"></button>
 
-
+<br><p id = "respond"></p>
 
 <script>
 function outlet5_on(){
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "sudo ./code/remote 5 ON", true);
+
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4 && xhttp.status == 200){
+			document.getElementById("respond").innerHTML = xhttp.responseText;
+		}
+	}
+
+	xhttp.open("POST", "on5.php", true);
 	xhttp.send();
+	//alert("Hi.");
 }
 
 function outlet5_off(){
 	var xhttp = new XMLHttpRequest();
-	xhttp.open("POST", "sudo ./code/remote 5 OFF", true);
+
+	xhttp.onreadystatechange = function(){
+		if(xhttp.readyState == 4 && xhttp.status == 200){
+			document.getElementById("respond").innerHTML = xhttp.responseText;
+		}
+	}	
+
+	xhttp.open("POST", "off5.php", true);
 	xhttp.send();
+	//alert("Bye.");
 }
 </script>
 
