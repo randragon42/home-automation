@@ -19,14 +19,20 @@
 <h4>Outlet 5</h4>
 <button type="button" onclick="outlet5_on()"><img src="images/on_button.png" height="142"width="142"></button>
 <button type="button" onclick="outlet5_off()"><img src="images/off_button.jpg" height="142"width="142"></button>
+<br>
 
 <?php
-echo "hello world";
+function outlet5_on(){
+	exec("./code/remote 5 ON");
+}
+function outlet5_off(){
+	exec("./code/remoteo 5 OFF");
+}
 
 ?>
 
 <script>
-function WebSocket(){
+//function WebSocket(){
 //These functions don't work...
 //Will need to do something with nodeJS probably...
 /*function outlet1_on(){
@@ -39,7 +45,7 @@ function outlet1_off(){
 	//child_process.exec("sudo ./code/remote 5 OFF");
 }*/
 
-WebSocket();
+//WebSocket();
 </script>
 
 
